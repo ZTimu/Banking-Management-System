@@ -17,9 +17,9 @@ public class BankingApp {
         try {
             Connection connection = DriverManager.getConnection(url, username, password);// connection established
             Scanner scanner = new Scanner(System.in);
-            Accounts accounts = new Accounts(connection, scanner);
-            AccountsManager accountsManager = new AccountsManager(connection, scanner);
-            User user = new User(connection, scanner);
+            Accounts accounts = new Accounts(scanner, connection);
+            AccountsManager accountsManager = new AccountsManager(scanner,connection);
+            User user = new User(scanner,connection);
             String Email;
             long account_number;
             while (true) {
@@ -69,16 +69,16 @@ public class BankingApp {
 
                             switch (accountOperationChoice) {
                                 case 1:
-                                    accountsManager.debit_money(account_number);
+                                    AccountsManager.debit_money(account_number);
                                     break;
                                 case 2:
-                                    accountsManager.credit_money(account_number);
+                                    AccountsManager.credit_money(account_number);
                                     break;
                                 case 3:
-                                    accountsManager.transfer_money(account_number);
+                                    AccountsManager.transfer_money(account_number);
                                     break;
                                 case 4:
-                                    accountsManager.getBalance(account_number);
+                                    AccountsManager.getBalance(account_number);
                                     break;
                                 case 5:
                                     return;
