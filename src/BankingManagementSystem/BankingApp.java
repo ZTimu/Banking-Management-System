@@ -18,8 +18,8 @@ public class BankingApp {
             Connection connection = DriverManager.getConnection(url, username, password);// connection established
             Scanner scanner = new Scanner(System.in);
             Accounts accounts = new Accounts(scanner, connection);
-            AccountsManager accountsManager = new AccountsManager(scanner,connection);
-            User user = new User(scanner,connection);
+            AccountsManager accountsManager = new AccountsManager(scanner, connection);
+            User user = new User(scanner, connection);
             String Email;
             long account_number;
             while (true) {
@@ -33,12 +33,11 @@ public class BankingApp {
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
-//                    user.register();
+                        user.register();
                         break;
                     case 2:
-//                        Email = user.login(); need to be implemented
-                        if(Email!=null) {
-                            System.out.println("Successfully Logged in.");
+                         Email = user.login();
+                        if (Email != null) {
                             if (!accounts.account_exist(Email)) {
                                 System.out.println("Choose an option!");
                                 System.out.println();
@@ -47,9 +46,9 @@ public class BankingApp {
                                 int loginchoice;
                                 loginchoice = scanner.nextInt();
                                 if (loginchoice == 1) {
-                                    account_number = accounts.open_account(Email);
+                                    account_number = accounts.open_accounts(Email);
                                     System.out.println("Account opened successfully");
-//                                   System.out.println("Your account number is...");
+                                    System.out.println("Your account number is...");
                                 } else {
                                     System.out.println("See you again.");
                                     break;
@@ -64,21 +63,22 @@ public class BankingApp {
                             System.out.println("1. Debit money");
                             System.out.println("2. Credit Money");
                             System.out.println("3. Transfer Money");
-                            System.out.println("4. Log Out");
+                            System.out.println("4. Get Balance");
+                            System.out.println("5. Log Out");
                             accountOperationChoice = scanner.nextInt();
 
                             switch (accountOperationChoice) {
                                 case 1:
-                                    AccountsManager.debit_money(account_number);
+                                    accountsManager.debit_money(account_number);
                                     break;
                                 case 2:
-                                    AccountsManager.credit_money(account_number);
+                                    accountsManager.credit_money(account_number);
                                     break;
                                 case 3:
-                                    AccountsManager.transfer_money(account_number);
+                                    accountsManager.transfer_money(account_number);
                                     break;
                                 case 4:
-                                    AccountsManager.getBalance(account_number);
+                                    accountsManager.getBalance(account_number);
                                     break;
                                 case 5:
                                     return;
@@ -86,9 +86,8 @@ public class BankingApp {
                                     System.out.println("Enter a valid Option");
                                     break;
                             }
-                        }
-                        else {
-                            System.out.println("Incorrect Email. Please Try again.");
+                        } else {
+                            System.out.println("Incorrect Credential. Please Try again.");
                         }
                         break;
 

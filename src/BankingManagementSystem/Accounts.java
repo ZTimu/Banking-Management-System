@@ -16,21 +16,27 @@ public class Accounts {
 
     public long open_accounts(String Email) {
         if (!account_exist(Email)) {
-            String open_account_query = "INSERT INTO accounts(account_number, full_name,email,balance,sequrity_pin) VALUES(?,?,?,?,?)";
+            String open_account_query = "INSERT INTO accounts(account_number, full_name,email,balance,security_pin) " +
+                    "VALUES(?,?,?,?,?)";
             scanner.nextLine();
             System.out.print("Enter Full Name: ");
-            System.out.println();
             String user_full_name = scanner.nextLine();
-            System.out.print("Email: ");
             System.out.println();
-            String user_email = scanner.nextLine();
-            System.out.print("Enter Balance to credit: ");
-            System.out.println();
-            double user_balance = scanner.nextDouble();
 
-            System.out.print("Set Sequrity Pin: ");
+            System.out.print("Email: ");
+            String user_email = scanner.nextLine();
             System.out.println();
+
+            System.out.print("Enter Balance to credit: ");
+            double user_balance = scanner.nextDouble();
+            scanner.nextLine();
+            System.out.println();
+
+
+            System.out.print("Set Security Pin: ");
             String user_pin = scanner.nextLine();
+            System.out.println();
+
             try {
                 long user_account_number = generate_account_number();
                 PreparedStatement preparedStatement = connection.prepareStatement(open_account_query);
@@ -43,6 +49,7 @@ public class Accounts {
                 if (rows_effected > 0) {
                     System.out.println("Congratulations! Registration successfull");
                     System.out.println("Your account number is: " + user_account_number);
+                    return user_account_number;
                 } else {
                     throw new RuntimeException("Ragistration failed, Please Try again!");
                 }
